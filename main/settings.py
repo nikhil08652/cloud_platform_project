@@ -73,7 +73,15 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'btreb',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': 'localhost'
+    }
+}
 
 
 # Password validation
@@ -130,6 +138,7 @@ MESSAGE_TAGS = {
 }
 
 try: 
-    from .local_settings import *
+    from local_settings import *
 except ImportError:
-    pass
+	print("cannot find local settings")
+	pass
