@@ -3,16 +3,20 @@ from django.http import HttpResponse
 from listings.models import Listing
 from realtors.models import Realtor
 from listings.choices import price_choices, bedroom_choices, state_choices
+from pages.stats import totallistings, totalrealtors
 
 def index(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]
     #listings = Listing.objects.order_by('-list_date').filter(is_published=True)
-    
+    listingscount=totallistings()
+    realtorscount = totalrealtors()
     context = {
         'listings': listings,
         'state_choices': state_choices,
         'bedroom_choices': bedroom_choices,
-        'price_choices': price_choices
+        'price_choices': price_choices,
+        'listingscount': listingscount,
+        'realtorscount': realtorscount,
     }
     return render(request,'pages/index.html', context)
 
